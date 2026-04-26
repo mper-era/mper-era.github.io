@@ -48,6 +48,16 @@ p, li {
     z-index: 3;
 }
 
+.morep {
+    color: var(--border-color);
+    font-weight: 700;
+    font-style: normal;
+    width: 80%;
+    margin-bottom: 1rem;
+    z-index: 4;
+    font-size: 1.575rem;
+}
+
 .lessp {
     color: var(--border-color);
     font-weight: 700;
@@ -55,6 +65,14 @@ p, li {
 
 ul {
     list-style-type: none;
+    padding-left: 0;
+}
+
+ul li::before {
+    content: "–";
+    color: var(--accent-color);
+    margin-right: 0.6em;
+    font-family: var(--heading-font);
 }
 
 a {
@@ -146,4 +164,10 @@ h2 {
     width: 0.8vw;
     height: 0.8vw;
     opacity: 1;
+}
+
+.sidenav a.active {
+  color: var(--accent-color);
+  border-left: 3px solid var(--accent-color);
+  padding-left: calc(1.75rem - 3px); /* compensate for border width */
 }

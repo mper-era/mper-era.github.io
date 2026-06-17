@@ -1,10 +1,11 @@
 :root {
     --bg-color: #121212;
-    --text-color: #dee4ea;
-    --link-color: #518fe4;
+    --text-color: #eae1de;
+    --link-color: #5178e4;
     --head-bg-color: #06235d;
     --note-color: #222832;
-    --border-color: #48566b;
+    --border-color: #6d88b1;
+    --border-color2: #6db181;
     --fade-color: #9ca4af;
     --accent-color: #e89217;
     --default-font: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Helvetica Neue", "Arial", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -49,10 +50,9 @@ p, li {
 }
 
 .morep {
-    color: var(--border-color);
+    color: var(--border-color2);
     font-weight: 700;
     font-style: normal;
-    width: 80%;
     margin-bottom: 1rem;
     z-index: 4;
     font-size: 1.575rem;
@@ -75,6 +75,10 @@ ul li::before {
     font-family: var(--heading-font);
 }
 
+ul li:hover {
+    color: var(--accent-color);
+}
+
 a {
     color: var(--link-color);
     font-family: var(--heading-font);
@@ -91,12 +95,25 @@ a:hover {
     text-decoration-thickness: 2px;
 }
 
+a:has(svg) {
+    color: var(--text-color);
+}
+
+a:has(svg) svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+a:has(svg):hover {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
 h1, h2, h3 {
     color: var(--accent-color);
     font-family: var(--heading-font);
     font-style: normal;
     font-weight: 500;
-    width: 80%;
     margin-bottom: 1rem;
     z-index: 4;
 }
@@ -161,8 +178,8 @@ h2 {
     z-index: 1;
     pointer-events: none;
     border-radius: 50%;
-    width: 0.8vw;
-    height: 0.8vw;
+    width: 0.75vw;
+    height: 0.75vw;
     opacity: 1;
 }
 

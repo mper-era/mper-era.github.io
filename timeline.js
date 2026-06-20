@@ -38,15 +38,10 @@ function monthKey(str) {
   return `${y}-${m}`;
 }
 
-// ── Layout constants ────────────────────────────────────────────────────
-// PX_PER_DAY is now computed from window.innerWidth at layout time (see
-// getPxPerDay below) instead of being a flat constant. These reference
-// values describe the density at REFERENCE_WIDTH; below MIN_WIDTH the
-// density is clamped so events never compress past a usable minimum.
 const REFERENCE_WIDTH = 1400;  // window width at which PX_PER_DAY = BASE_PX_PER_DAY
 const BASE_PX_PER_DAY = 2;     // density at REFERENCE_WIDTH (was the old flat constant)
-const MIN_PX_PER_DAY = 0.6;    // floor — never compress further than this
-const MAX_PX_PER_DAY = 3;      // ceiling — never stretch further than this
+const MIN_PX_PER_DAY = 0.6;
+const MAX_PX_PER_DAY = 3;
 
 const TOP_PADDING = 90;
 const BOTTOM_PADDING = 90;
@@ -63,19 +58,12 @@ events.forEach((ev) => {
 const sorted = [...events].sort((a, b) => b._days - a._days);
 const maxDays = sorted[0]._days;
 
-// Scales PX_PER_DAY based on the current window width. Narrower windows
-// get a smaller PX_PER_DAY (events compress closer together); wider
-// windows get a larger one (events spread further apart) — clamped
-// between MIN_PX_PER_DAY and MAX_PX_PER_DAY so it never goes too extreme.
 function getPxPerDay() {
   const ratio = window.innerWidth / REFERENCE_WIDTH;
   const scaled = BASE_PX_PER_DAY * ratio;
   return Math.min(MAX_PX_PER_DAY, Math.max(MIN_PX_PER_DAY, scaled));
 }
 
-// Builds (or rebuilds) all event card elements and positions them
-// according to the current PX_PER_DAY. Safe to call repeatedly — it
-// clears out any previously rendered items first.
 function layout() {
   const pxPerDay = getPxPerDay();
 
@@ -139,7 +127,6 @@ function layout() {
 
 layout();
 
-// ── Scroll logic ───────────────────────────────────────────────────────
 function getItems() {
   return Array.from(document.querySelectorAll(".tl-item"));
 }
@@ -162,7 +149,6 @@ function update() {
     }
   });
 
-  // 🔥 NEW: disable activation entirely on small screens
   if (window.innerWidth <= 600) {
     items.forEach((el) => {
       if (el.dataset.state !== "inactive") {
@@ -194,8 +180,6 @@ function onScroll() {
   });
 }
 
-// Re-run layout (recomputing PX_PER_DAY from the new window width) on
-// resize, then re-run update() so the active card is still correct.
 let resizeRafPending = false;
 function onResize() {
   if (resizeRafPending) return;

@@ -1,3 +1,4 @@
+
 const events = [
   {id: "event1", title: "Started Attending IMSA", date: "2023-08", description: "Skipped 9th grade and went to the Illinois Mathematics and Science Academy", side: "right", link: "pages/edu.html#e1"},
   {id: "event2", title: "Graduated IMSA", date: "2026-05", description: "Obtained high school diploma, final unweighted GPA of 3.9/4.0", side: "right", link: "pages/edu.html#e1"},
@@ -38,10 +39,10 @@ function monthKey(str) {
   return `${y}-${m}`;
 }
 
-const REFERENCE_WIDTH = 1400;  // window width at which PX_PER_DAY = BASE_PX_PER_DAY
-const BASE_PX_PER_DAY = 2;     // density at REFERENCE_WIDTH (was the old flat constant)
-const MIN_PX_PER_DAY = 0.6;
-const MAX_PX_PER_DAY = 3;
+const REFERENCE_WIDTH = 1400;  // window width at which pxPerDay = BASE_PX_PER_DAY
+const BASE_PX_PER_DAY = 2;     // density of events
+const minSpacing = 0.6;
+const maxSpacing = 3;
 
 const TOP_PADDING = 90;
 const BOTTOM_PADDING = 90;
@@ -58,10 +59,11 @@ events.forEach((ev) => {
 const sorted = [...events].sort((a, b) => b._days - a._days);
 const maxDays = sorted[0]._days;
 
+// Calculation of pxPerDay
 function getPxPerDay() {
   const ratio = window.innerWidth / REFERENCE_WIDTH;
   const scaled = BASE_PX_PER_DAY * ratio;
-  return Math.min(MAX_PX_PER_DAY, Math.max(MIN_PX_PER_DAY, scaled));
+  return Math.min(maxSpacing, Math.max(minSpacing, scaled));
 }
 
 function layout() {
